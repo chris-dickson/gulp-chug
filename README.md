@@ -99,6 +99,7 @@ gulp.task( 'default', function () {
         .pipe( chug( {
             nodeCmd: 'node',
             tasks:  [ 'default' ],
+            debug: true,
             args:   [ '--my-arg-1', '--my-arg-2' ]
         } ) );
 } );
