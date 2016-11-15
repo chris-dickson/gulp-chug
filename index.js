@@ -25,7 +25,8 @@ module.exports = function ( options, userCallback ) {
     // Set default options
     var opts = _.assign( {
         nodeCmd: 'node',
-        tasks: [ 'default' ]
+        tasks: [ 'default' ],
+        debug : true
     }, options );
 
     // Set the callback to a noop if it's not a function
@@ -43,12 +44,14 @@ module.exports = function ( options, userCallback ) {
 
         // Configure logging and errors
         var say = function( msg, noNewLine ) {
-            if ( !noNewLine ) {
-                return console.log(
-                    util.format( '[%s]', gutil.colors.green( PKG.name ) ), msg
-                );
+            if ( opts.debug ) {
+                if (!noNewLine) {
+                    return console.log(
+                        util.format('[%s]', gutil.colors.green(PKG.name)), msg
+                    );
+                }
+                process.stdout.write(util.format('[%s]', gutil.colors.green(PKG.name)) + ' ' + msg)
             }
-            process.stdout.write( util.format( '[%s]', gutil.colors.green( PKG.name ) ) + ' ' + msg )
         };
 
         var sayErr = function( errMsg ) {
