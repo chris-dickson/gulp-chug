@@ -77,16 +77,16 @@ module.exports = function ( options, userCallback ) {
         // If file contents is null, { read: false }, just execute file as-is
         // on disk
         if( file.isNull() ){
-            say( util.format(
-                'Gulpfile, %s, contents is empty. Reading directly from disk...',
-                gulpfile.name
-            ) );
+            // say( util.format(
+            //     'Gulpfile, %s, contents is empty. Reading directly from disk...',
+            //     gulpfile.name
+            // ) );
         }
 
         // If file contents is a buffer, write a temp file and run that instead
         if( file.isBuffer() ) {
 
-            say( 'File is a buffer. Need to write buffer to temp file...' );
+//            say( 'File is a buffer. Need to write buffer to temp file...' );
 
             var tmpGulpfileName = util.format(
                 '%s.tmp.%s%s',
@@ -103,10 +103,10 @@ module.exports = function ( options, userCallback ) {
             gulpfile.relPath        = path.relative( process.cwd(), gulpfile.path );
             gulpfile.name           = tmpGulpfileName;
 
-            say( util.format(
-                'Writing buffer to %s...',
-                gutil.colors.magenta( gulpfile.relPath )
-            ) );
+            // say( util.format(
+            //     'Writing buffer to %s...',
+            //     gutil.colors.magenta( gulpfile.relPath )
+            // ) );
 
             // Write tmp file to disk
             fs.writeFileSync( gulpfile.path, file.contents );
@@ -144,11 +144,11 @@ module.exports = function ( options, userCallback ) {
             args = args.concat( opts.args );
         }
 
-        say(
-            'Spawning process ' + gutil.colors.magenta( localGulpCliPath ) +
-            ' with args ' + gutil.colors.magenta( args.join( ' ' ) ) +
-            ' from directory ' + gutil.colors.magenta( gulpfile.base ) + '...'
-        );
+        // say(
+        //     'Spawning process ' + gutil.colors.magenta( localGulpCliPath ) +
+        //     ' with args ' + gutil.colors.magenta( args.join( ' ' ) ) +
+        //     ' from directory ' + gutil.colors.magenta( gulpfile.base ) + '...'
+        // );
 
         // Execute local gulpfile cli script
         var spawnedGulp = spawn( cmd, args, { cwd: gulpfile.base } );
@@ -182,7 +182,7 @@ module.exports = function ( options, userCallback ) {
         var cleanupTmpFile = function () {
             try {
                 if( gulpfile.tmpPath ) {
-                    say( util.format( 'Removing temp file %s', gulpfile.tmpPath ) );
+                    //say( util.format( 'Removing temp file %s', gulpfile.tmpPath ) );
                     fs.unlinkSync( gulpfile.tmpPath );
                 }
             } catch ( e ) {
@@ -209,7 +209,7 @@ module.exports = function ( options, userCallback ) {
             cleanupTmpFile();
 
             if ( exitCode === 0 ) {
-                say( 'Returning to parent gulpfile...' );
+                //say( 'Returning to parent gulpfile...' );
             } else {
                 sayErr( util.format(
                     'Gulpfile %s exited with an error :(',
